@@ -15,9 +15,24 @@
 require_once("funcs.php");
 
 // <!-- POSTデータ受け取り&変数へ代入 -->
-    
+    $name= $_POST['name'];
+    $mail= $_POST['mail'];
+    $date= implode(",", $_POST["date"]);
+    $place= $_POST['place'];
+    $food= $_POST['food'];
+    $allergy= $_POST['allergy'];
+    $other= $_POST['other'];
+
+    ?>
 
 // <!-- 確認項目の一覧化 -->
+<p>氏名:<?=h($name)?></p>
+<p>メールアドレス：<?=h($mail)?></p>
+<p>参加可能日:<?=h($date)?></p>
+<p>場所:<?=h($place)?>/p>
+<p>食事タイプ<?=h($food)?></p>
+<p>アレルギー:<?=h($allergy)?></p>
+<p>その他:<?=h($other)?></p>
 
 // <!-- 記入画面に戻るボタン -->
 
@@ -26,6 +41,6 @@ require_once("funcs.php");
 
 
 
-?>
+
 </body>
 </html>
