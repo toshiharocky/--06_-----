@@ -6,6 +6,10 @@
     <title>Document</title>
 </head>
 <body>
+<h1>〇〇に関するアンケート</h1>
+<h2>氏名</h2>
+<input type="text" action="02_post_confirm.php" name="name">
+
     
 </body>
 </html>
