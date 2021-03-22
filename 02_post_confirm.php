@@ -10,7 +10,7 @@
     
 </head>
 <body>
-<?
+<?php
 // <!-- funcs.phpの読み込み -->
 require_once("funcs.php");
 
