@@ -10,7 +10,7 @@
 <body>
 <h1>〇〇に関するアンケート</h1>
 
-<!-- 質問事項 -->
+<!-- 質問事項（POSTで送信） -->
 <div id="questions-wrapper">
     <form action="02_post_confirm.php" method="post">
         <p>氏名：<input type="text" name="name"></p>
@@ -22,6 +22,7 @@
     <form action=""class="questions"></form>
 </div>
 
+<!-- 確認ボタン -->
     
 </body>
 </html>
