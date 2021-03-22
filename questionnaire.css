@@ -10,11 +10,7 @@ body {
   width: 100%;
   margin: 0 auto;
   padding-bottom: 0 50px;
-  border: 1px solid #000;
-  background-color: #17408B;
-  font-family: neue-haas-grotesk-display,sans-serif;
   font-weight: 700;
-  font-style: italic;
 }
 
 #pTitle{
