@@ -35,9 +35,10 @@ require_once("funcs.php");
 <p>その他:<?=h($other)?></p>
 
 // <!-- 記入画面に戻るボタン -->
+<link href="01_post.php" type=button value="戻る">
 
 // <!-- 送信ボタン -->
-
+<button link="04_completed" value="送信" id="submit">
 
 
 
