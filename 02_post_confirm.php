@@ -6,6 +6,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="questionnaire.css">
+    <!-- firebaseの読み込み -->
+    
 </head>
 <body>
 <?
