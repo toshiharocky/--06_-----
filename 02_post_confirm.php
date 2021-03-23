@@ -29,28 +29,31 @@ require_once("funcs.php");
     $foodForBrouse = implode(",", $_POST["food-type"]);
 
 
-    $time = date('Y-m-d H:i:s');
+    $time = date('m/d H:i:s');
 
-
+// Firebase登録用のsendMessage関数
+function sendMessage(){
     // 情報をオブジェクト化
     $str = array(
-        "name" => $name,
-        "mail" => $mail,
+        "name" => h($name),
+        "mail" => h($mail),
         "date" => $date,
         "place" => $place,
         "food" => $food,
-        "allergy" => $allergy,
-        "other" => $other
+        "allergy" => h($allergy),
+        "other" => h($other)
     );
     
-    var_dump($str);
+    // var_dump($str);
+    $json = json_encode($str);
+    ref(h($name)).push($json);
     
-    // ファイルに書き込み
+    // ファイル(data.json)に書き込み
     $file = fopen("data/data.json", "a");
-    fwrite($file, h($str)."\n");
+    fwrite($file, $time." ".$json."\n");
     fclose($file);
-
     ?>
+    }
 
 <!-- 確認項目の一覧化 -->
 <p>氏名:<?=h($name)?></p>
@@ -69,6 +72,11 @@ require_once("funcs.php");
 <?php
 
 ?>
+
+<!-- 「登録」ボタンを押下したらfirebaseへ登録 -->
+
+
+<!-- 「登録」ボタンを押下したら「data.txt」への書き込み -->
 
 
 
