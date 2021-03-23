@@ -65,9 +65,7 @@
             // $allergy= $_POST['allergy'];
             // $other= $_POST['other'];
 
-        // 時間データ取得
-            $time = date('m/d H:i:s');
-
+        
         // 情報をオブジェクト化
         $str = array(
             "name" => h($name),
@@ -80,19 +78,12 @@
         );
         
         // オブジェクトをJSONに変換
-        session_start();
         $json = json_encode($str);
+        session_start();
+        $_SESSION["jsonForRecord"] = $json;
         echo $json;
-        // ファイル(data.json)に書き込み
-        $file = fopen("data/data.json", "a");
-        fwrite($file, $time." ".$json."\n");
-        fclose($file);
-
-        
-        
-    // }
 ?>
-
+    
 <!-- 確認項目の一覧化 -->
 <p>氏名:<?=h($name)?></p>
 <p>メールアドレス：<?=h($mail)?></p>
@@ -107,23 +98,18 @@
 <button onclick="history.back(); return false;" value="戻る">戻る
 
 <!-- 送信ボタン -->
-<button onclick="sendMessage()" value="送信" name="submit" id="submit">送信
-<!-- , location.href='04_completed.php'  -->
+<button onclick="location.href='04_completed.php'" value="送信" name="submit" id="submit">送信
 
-<!-- 「登録」ボタンを押下したらsendMessage関数が発火 -->
+
+<!-- 「登録」ボタンを押下したらFirebaseへ登録 -->
 <script>
-    let js_array = '<?= $json?>';
-    let js_array_db = JSON.parse(js_array);
-    console.log(js_array_db);
-    firebase.database().ref(js_array_db.name).push(js_array_db);            
+    $("#submit").on('click', function(){
+        let js_array = '<?= $json?>';
+        let js_array_db = JSON.parse(js_array);
+        console.log(js_array_db);
+        firebase.database().ref(js_array_db.name).set(js_array_db);
+    })
 </script>
-
-
-
-
-
-<!-- 「登録」ボタンを押下したら「data.txt」への書き込み -->
-
 
 
 
