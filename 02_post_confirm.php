@@ -6,8 +6,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="questionnaire.css">
-    <!-- firebaseの読み込み -->
-    
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 <?php
@@ -17,20 +17,40 @@ require_once("funcs.php");
 // <!-- POSTデータ受け取り&変数へ代入 -->
     $name= $_POST['name'];
     $mail= $_POST['mail'];
-    $date= implode(",", $_POST["date"]);
-    $place= implode(",", $_POST["place"]);
-    $food= implode(",", $_POST["food-type"]);
+    $date= $_POST["date"];
+    $place= $_POST["place"];
+    $food= $_POST["food-type"];
     $allergy= $_POST['allergy'];
     $other= $_POST['other'];
 
+    // ブラウザ表示用に複数回答の表示をオブジェクトから並列表示へ変更
+    $dateForBrouse = implode(",", $_POST["date"]);
+    $placeForBrouse = implode(",", $_POST["place"]);
+    $foodForBrouse = implode(",", $_POST["food-type"]);
+
+
     $time = date('Y-m-d H:i:s');
 
-    // 名前とメールを結合
-    $str = $time.' / '.$name.' / '.$mail.' / '.$date.' / '.$place.' / '.$food.' / '.$allergy.' / '.$other;
+
+    // 情報をオブジェクト化
+    $str = array(
+        "name" => $name,
+        "mail" => $mail,
+        "date" => $date,
+        "place" => $place,
+        "food" => $food,
+        "allergy" => $allergy,
+        "other" => $other
+    );
+    
+    var_dump($str);
 
     
+
+    
+    
     // ファイルに書き込み
-    $file = fopen("json/json.json", "a");
+    $file = fopen("data/data.json", "a");
     fwrite($file, h($str)."\n");
     fclose($file);
 
@@ -39,9 +59,9 @@ require_once("funcs.php");
 <!-- 確認項目の一覧化 -->
 <p>氏名:<?=h($name)?></p>
 <p>メールアドレス：<?=h($mail)?></p>
-<p>参加可能日:<?=h($date)?></p>
-<p>場所:<?=h($place)?></p>
-<p>食事タイプ:<?=h($food)?></p>
+<p>参加可能日:<?=h($dateForBrouse)?></p>
+<p>場所:<?=h($placeForBrouse)?></p>
+<p>食事タイプ:<?=h($foodForBrouse)?></p>
 <p>アレルギー:<?=h($allergy)?></p>
 <p>その他:<?=h($other)?></p>
 
@@ -50,9 +70,33 @@ require_once("funcs.php");
 
 <!-- 送信ボタン -->
 <button onclick="location.href='04_completed.php'" value="送信" id="submit">送信
+<?php
+
+?>
 
 
 
+
+<!-- 以下、Firebase -->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBSpu4gugaQNUs8E1RfzfEz-H2ZMT3Rfo8",
+    authDomain: "php-questionnaire.firebaseapp.com",
+    projectId: "php-questionnaire",
+    storageBucket: "php-questionnaire.appspot.com",
+    messagingSenderId: "536483752965",
+    appId: "1:536483752965:web:a689b5d992f0aee456006c"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
 
 </body>
 </html>
