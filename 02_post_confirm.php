@@ -44,10 +44,6 @@ require_once("funcs.php");
     );
     
     var_dump($str);
-
-    
-
-    
     
     // ファイルに書き込み
     $file = fopen("data/data.json", "a");
@@ -96,6 +92,7 @@ require_once("funcs.php");
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+  const ref = firebase.database().ref();
 </script>
 
 </body>
