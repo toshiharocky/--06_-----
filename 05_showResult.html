@@ -9,17 +9,12 @@
     <!-- JQuery -->
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 
-
-
-
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <!-- <script type="text/javascript">
+    <script type="text/javascript">
 
       
-
-      
-    </script> -->
+    </script> 
 
     <!-- 以下、Firebase -->
         <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -70,65 +65,54 @@
     // Load the Visualization API and the corechart package.
     google.charts.load('current', {'packages':['corechart']});
 
-    // Set a callback to run when the Google Visualization API is loaded.
-    google.charts.setOnLoadCallback(drawBarChartOfParticipants);
-    
-    // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawBarChartOfParticipants() {
+    let apr2 = 0;
+    let apr3 = 0;
+    let apr9 = 0;
+    let apr10 = 0;
+    let apr16 = 0;
+    let apr17 = 0;
+    let people = null;
 
-        // Create the data table.
-        
-        let apr2 = 0;
-        let apr3 = 0;
-        let apr9 = 0;
-        let apr10 = 0;
-        let apr16 = 0;
-        let apr17 = 0;
-        ref.on('child_added',function(data){
-            const v = data.val();
-            for(let i=0; i<v.date.length; i++){
-                console.log(v.date[i]);
-                if(v.date[i] == "4月2日"){
-                    apr2 ++;
-                } else if(v.date[i] == "4月3日"){
-                    apr3 ++;
-                } else if(v.date[i] == "4月9日"){
-                    apr9 ++;
-                } else if(v.date[i] == "4月10日"){
-                    apr10 ++;
-                } else if(v.date[i] == "4月16日"){
-                    apr16 ++;
-                } else if(v.date[i] == "4月17日"){
-                    apr17 ++;
+
+    let peopleData = new Promise((resolve, reject) =>{            
+            // Firebaseから情報を取得
+            ref.on('child_added',function(data){
+                const v = data.val();
+                for(let i=0; i<v.date.length; i++){
+                    if(v.date[i] == "4月2日"){
+                        apr2 ++;
+                    } else if(v.date[i] == "4月3日"){
+                        apr3 ++;
+                    } else if(v.date[i] == "4月9日"){
+                        apr9 ++;
+                    } else if(v.date[i] == "4月10日"){
+                        apr10 ++;
+                    } else if(v.date[i] == "4月16日"){
+                        apr16 ++;
+                    } else if(v.date[i] == "4月17日"){
+                        apr17 ++;
+                    }
                 }
-            }
-            console.log(v.date[1]);
-            console.log(apr2);
-            console.log(apr3);
-            console.log(apr9);
-            console.log(apr10);
-            console.log(apr16);
-            console.log(apr17);
-        })
+                people = [apr2, apr3, apr9, apr10, apr16, apr17]
+                resolve(people);
+            })
+        }
+    )
 
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        console.log(apr2);
-        console.log(apr3);
-        console.log(apr9);
-        console.log(apr10);
-        console.log(apr16);
-        console.log(apr17);
-        data.addRows([
-        ['4月2日', apr2],
-        ['4月3日', apr3],
-        ['4月9日', apr9],
-        ['4月10日', apr10],
-        ['4月16日', apr16],
-        ['4月17日', apr17]        
+    peopleData.then((drawParticipantsBarChart) => {
+        // Create the data table.
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['4月2日', people[0]],
+            ['4月3日', people[1]],
+            ['4月9日', people[2]],
+            ['4月10日', people[3]],
+            ['4月16日', people[4]],
+            ['4月17日', people[5]]
         ]);
 
         // Set chart options
@@ -139,7 +123,15 @@
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.BarChart(document.getElementById('NumberOfParticipants'));
         chart.draw(data, options);
-        }
+        
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawParticipantsBarChart);
+       
+        });
+
+        
+
+        
 </script>
 
 
