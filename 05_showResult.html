@@ -7,7 +7,7 @@
     <!-- <link rel="stylesheet" href="reset.css"> -->
     <!-- <link rel="stylesheet" href="#"> -->
     <!-- JQuery -->
-        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -44,8 +44,8 @@
 <body>
 <!--Div that will hold the pie chart-->
 <h1>懇親会アンケート結果</h1>
-<div id="NumberOfParticipants"></div>
 <h2>参加人数</h2>
+<div id="NumberOfParticipants"></div>
 <h2>参加者希望</h2>
 <select id="date">
     <option value="" selected>日付を選択</option>
@@ -56,6 +56,7 @@
     <option value="4月16日">4月16日</option>
     <option value="4月17日">4月17日</option>
 </select>
+<h3>希望場所</h3>
 <div id="place"></div>
 <div id="mealType"></div>
 <div id="allergy"></div>
@@ -65,6 +66,7 @@
     // Load the Visualization API and the corechart package.
     google.charts.load('current', {'packages':['corechart']});
 
+// 参加人数bar chart
     let apr2 = 0;
     let apr3 = 0;
     let apr9 = 0;
@@ -73,9 +75,8 @@
     let apr17 = 0;
     let people = null;
 
-
-    let peopleData = new Promise((resolve, reject) =>{            
-            // Firebaseから情報を取得
+    // Firebaseから情報を取得
+    let peopleData = new Promise((resolve, reject) =>{
             ref.on('child_added',function(data){
                 const v = data.val();
                 for(let i=0; i<v.date.length; i++){
@@ -98,7 +99,8 @@
             })
         }
     )
-
+    
+    // Firebaseから情報を取得し終わったら、バーチャートを作成する
     peopleData.then((drawParticipantsBarChart) => {
         // Create the data table.
         // Callback that creates and populates a data table,
@@ -129,9 +131,180 @@
        
         });
 
-        
+// 場所の希望
+let apr2_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
+let apr3_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
+let apr9_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
+let apr10_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
+let apr16_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
+let apr17_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
+let candidatePlace = null;
+      
+    // 日付が変わったら、Firebaseから情報を取得
+    $("#date").change(function(){
+        let preferedDate =new Promise((resolve, reject) => {
+            ref.on('child_added', function(data){
+                
+                const v = data.val();
+                for(let i=0; i<v.date.length; i++){
+                    switch(v.date[i]){
+                        case "4月2日":
+                            for(let j=0; j<v.place.length; j++){
+                                switch(v.place[j]){
+                                    case "新宿":
+                                        apr2_place.新宿++;
+                                    case "渋谷":
+                                        apr2_place.渋谷++;
+                                    case "恵比寿":
+                                        apr2_place.恵比寿++;
+                                    case "新橋":
+                                        apr2_place.新橋++;
+                                    case "上野":
+                                        apr2_place.上野++;
+                                    case "赤羽":
+                                        apr2_place.赤羽++;
+                                }
+                            }
+                        case "4月3日":
+                            for(let j=0; j<v.place.length; j++){
+                                switch(v.place[j]){
+                                    case "新宿":
+                                        apr3_place.新宿++;
+                                    case "渋谷":
+                                        apr3_place.渋谷++;
+                                    case "恵比寿":
+                                        apr3_place.恵比寿++;
+                                    case "新橋":
+                                        apr3_place.新橋++;
+                                    case "上野":
+                                        apr3_place.上野++;
+                                    case "赤羽":
+                                        apr3_place.赤羽++;
+                                }
+                            }
+                        case "4月9日":
+                            for(let j=0; j<v.place.length; j++){
+                                switch(v.place[j]){
+                                    case "新宿":
+                                        apr9_place.新宿++;
+                                    case "渋谷":
+                                        apr9_place.渋谷++;
+                                    case "恵比寿":
+                                        apr9_place.恵比寿++;
+                                    case "新橋":
+                                        apr9_place.新橋++;
+                                    case "上野":
+                                        apr9_place.上野++;
+                                    case "赤羽":
+                                        apr9_place.赤羽++;
+                                }
+                            }
+                        case "4月10日":
+                            for(let j=0; j<v.place.length; j++){
+                                switch(v.place[j]){
+                                    case "新宿":
+                                        apr10_place.新宿++;
+                                    case "渋谷":
+                                        apr10_place.渋谷++;
+                                    case "恵比寿":
+                                        apr10_place.恵比寿++;
+                                    case "新橋":
+                                        apr10_place.新橋++;
+                                    case "上野":
+                                        apr10_place.上野++;
+                                    case "赤羽":
+                                        apr10_place.赤羽++;
+                                }
+                            }
+                        case "4月16日":
+                            for(let j=0; j<v.place.length; j++){
+                                switch(v.place[j]){
+                                    case "新宿":
+                                        apr16_place.新宿++;
+                                    case "渋谷":
+                                        apr16_place.渋谷++;
+                                    case "恵比寿":
+                                        apr16_place.恵比寿++;
+                                    case "新橋":
+                                        apr16_place.新橋++;
+                                    case "上野":
+                                        apr16_place.上野++;
+                                    case "赤羽":
+                                        apr16_place.赤羽++;
+                                }
+                            }
+                        case "4月17日":
+                            for(let j=0; j<v.place.length; j++){
+                                switch(v.place[j]){
+                                    case "新宿":
+                                        apr17_place.新宿++;
+                                    case "渋谷":
+                                        apr17_place.渋谷++;
+                                    case "恵比寿":
+                                        apr17_place.恵比寿++;
+                                    case "新橋":
+                                        apr17_place.新橋++;
+                                    case "上野":
+                                        apr17_place.上野++;
+                                    case "赤羽":
+                                        apr17_place.赤羽++;
+                                }
+                            }
+                    }
+                }
+            })
+            d = $("#date").val()
+            switch(d){
+                case "4月2日":
+                    candidatePlace = apr2_place
+                case "4月3日":
+                    candidatePlace = apr3_place
+                case "4月9日":
+                    candidatePlace = apr9_place
+                case "4月10日":
+                    candidatePlace = apr10_place
+                case "4月16日":
+                    candidatePlace = apr16_place
+                case "4月17日":
+                    candidatePlace = apr17_place
+            }
+            resolve(candidatePlace);
+        })
+    
 
+    // Firebaseから情報を取得し終わったら、円グラフを作成する
+    // Firebaseから情報を取得し終わったら、バーチャートを作成する
+    peopleData.then((drawPlacePieChart) => {
+        // Create the data table.
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['新宿', candidatePlace.新宿],
+            ['渋谷', candidatePlace.渋谷],
+            ['恵比寿', candidatePlace.恵比寿],
+            ['新橋', candidatePlace.新橋],
+            ['上野', candidatePlace.上野],
+            ['赤羽', candidatePlace.赤羽],
+        ]);
+
+        // Set chart options
+        var options = {'title':'希望場所',
+                    'width':400,
+                    'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('place'));
+        chart.draw(data, options);
         
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawPlacePieChart);
+       
+        });
+
+    })
 </script>
 
 
