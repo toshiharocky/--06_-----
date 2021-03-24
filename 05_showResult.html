@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" 1tent="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="reset.css"> -->
+    <!-- <link rel="stylesheet" href="#"> -->
+    <!-- JQuery -->
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+
+
+
+
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- <script type="text/javascript">
+
+      
+
+      
+    </script> -->
+
+    <!-- 以下、Firebase -->
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+            <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyBSpu4gugaQNUs8E1RfzfEz-H2ZMT3Rfo8",
+                authDomain: "php-questionnaire.firebaseapp.com",
+                projectId: "php-questionnaire",
+                storageBucket: "php-questionnaire.appspot.com",
+                messagingSenderId: "536483752965",
+                appId: "1:536483752965:web:a689b5d992f0aee456006c"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            const ref = firebase.database().ref();
+        </script>
+</head>
+
+
+
+<body>
+<!--Div that will hold the pie chart-->
+<h1>懇親会アンケート結果</h1>
+<div id="NumberOfParticipants"></div>
+<h2>参加人数</h2>
+<h2>参加者希望</h2>
+<select id="date">
+    <option value="" selected>日付を選択</option>
+    <option value="4月2日">4月2日</option>
+    <option value="4月3日">4月3日</option>
+    <option value="4月9日">4月9日</option>
+    <option value="4月10日">4月10日</option>
+    <option value="4月16日">4月16日</option>
+    <option value="4月17日">4月17日</option>
+</select>
+<div id="place"></div>
+<div id="mealType"></div>
+<div id="allergy"></div>
+<div id="chart_div"></div>
+
+<script>
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', {'packages':['corechart']});
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawBarChartOfParticipants);
+    
+    // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawBarChartOfParticipants() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+        ['Mushrooms', 3],
+        ['Onions', 1],
+        ['Olives', 1],
+        ['Zucchini', 1],
+        ['Pepperoni', 2]
+        ]);
+
+        // Set chart options
+        var options = {'title':'How Much Pizza I Ate Last Night',
+                    'width':400,
+                    'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.BarChart(document.getElementById('NumberOfParticipants'));
+        chart.draw(data, options);
+        }
+</script>
+
+
+
+</body>
+
+</html>
