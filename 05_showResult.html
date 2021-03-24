@@ -79,23 +79,60 @@
       function drawBarChartOfParticipants() {
 
         // Create the data table.
+        
+        let apr2 = 0;
+        let apr3 = 0;
+        let apr9 = 0;
+        let apr10 = 0;
+        let apr16 = 0;
+        let apr17 = 0;
+        ref.on('child_added',function(data){
+            const v = data.val();
+            for(let i=0; i<v.date.length; i++){
+                console.log(v.date[i]);
+                if(v.date[i] == "4月2日"){
+                    apr2 ++;
+                } else if(v.date[i] == "4月3日"){
+                    apr3 ++;
+                } else if(v.date[i] == "4月9日"){
+                    apr9 ++;
+                } else if(v.date[i] == "4月10日"){
+                    apr10 ++;
+                } else if(v.date[i] == "4月16日"){
+                    apr16 ++;
+                } else if(v.date[i] == "4月17日"){
+                    apr17 ++;
+                }
+            }
+            console.log(v.date[1]);
+            console.log(apr2);
+            console.log(apr3);
+            console.log(apr9);
+            console.log(apr10);
+            console.log(apr16);
+            console.log(apr17);
+        })
+
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
-        ref.on('child_added',function(data){
-            const v = data.val();
-            console.log(v);
-        })
+        console.log(apr2);
+        console.log(apr3);
+        console.log(apr9);
+        console.log(apr10);
+        console.log(apr16);
+        console.log(apr17);
         data.addRows([
-        ['Mushrooms', 3],
-        ['Onions', 1],
-        ['Olives', 1],
-        ['Zucchini', 1],
-        ['Pepperoni', 2]
+        ['4月2日', apr2],
+        ['4月3日', apr3],
+        ['4月9日', apr9],
+        ['4月10日', apr10],
+        ['4月16日', apr16],
+        ['4月17日', apr17]        
         ]);
 
         // Set chart options
-        var options = {'title':'How Much Pizza I Ate Last Night',
+        var options = {'title':'参加人数',
                     'width':400,
                     'height':300};
 
