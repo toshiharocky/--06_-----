@@ -82,6 +82,10 @@
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
+        ref.on('child_added',function(data){
+            const v = data.val();
+            console.log(v);
+        })
         data.addRows([
         ['Mushrooms', 3],
         ['Onions', 1],
