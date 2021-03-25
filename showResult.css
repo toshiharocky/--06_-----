@@ -1,0 +1,134 @@
+@charset "utf-8";
+
+
+
+html {
+  font-size: 62.5%; /* 16px(HTML標準)の65%*/
+}
+
+body {
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 0 50px;
+  font-weight: 700;
+}
+
+#pTitle{
+  font-size: 6rem;
+  color: #fff;
+  text-align: center;
+  margin-top: 30px;
+}
+
+
+h1 {
+    text-align: center;
+    font-size: 3.6vw;
+}
+
+.result-wrapper{
+    margin: 20px auto 0;
+    display:flex;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2.4rem;
+}
+
+h3 {
+    text-align: center;
+    font-size: 2.4rem;
+    display: none;
+}
+
+
+/* 回答状況 */
+.left {
+    width: 30%;
+    padding: 0 10px;
+    margin: 20px auto 0;
+}
+.right {
+    width: 70%;
+    padding: 0 10px;
+    margin: 20px auto 0;
+    text-align: center;
+}
+table{
+    margin: 20px auto 0;
+    font-size: 1.4rem;
+    border: 1px #000000 solid;
+    text-align: center;
+    width: 100%;
+}
+#toprows{
+    color: #fff;
+    background-color: #17408B;
+    font-weight: bold;
+}
+th{
+    
+    padding: 10px 5px;
+    border: 1px #000000 solid;
+}
+td{
+    width: 13%;
+    height: 20px;
+    padding: 10px 5px;
+    border: 1px #000000 solid;
+    color: #000000;
+}
+.member{
+    width: 22%; 
+}
+
+/* 参加人数 */
+.number {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+}
+
+.wrapper2{
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* 日付選択 */
+#date{
+    margin: 20px auto 0;
+    font-size: 2rem;
+}
+
+/* アレルギー */
+#allergy{
+    margin-top: 15px;
+    text-align-last: left;
+    font-size: 1.6rem;
+}
+
+/* その他 */
+#other{
+    margin-top: 15px;
+    text-align-last: left;
+    font-size: 1.6rem;
+}
+
+/* ボタン */
+.back {
+    margin-top: 50px;
+    font-size: 2rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* footer */
+footer {
+    margin-top: 100px;
+}

@@ -5,7 +5,7 @@
     <meta name="viewport" 1tent="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- css -->
-    <link rel="stylesheet" href="reset.css"> -->
+    <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="showResult.css">
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -44,7 +44,7 @@
 
 <body>
 <!--Div that will hold the pie chart-->
-<h1>懇親会アンケート結果</h1>
+<h1>北斗★南斗大懇親会 集計</h1>
 <div class="result-wrapper">
     <div class="left">
         <h2>回答状況</h2>
@@ -87,6 +87,11 @@
         </div>
         </div>
 </div>
+
+<h2 class="back"><a href='01_post.php'>入力画面に戻る</a></h2>
+
+
+
 <footer></footer>
 
 <script>
@@ -202,7 +207,7 @@ let attendance = new Promise((resolve, reject) =>{
     ref.on('child_added', function(data){
         const k = data.key;
         const v = data.val();
-        console.log(v);
+        // console.log(v);
         // console.log(v.date.length);
         // console.log(k)
 
@@ -507,7 +512,7 @@ let attendance = new Promise((resolve, reject) =>{
             resolve(apr2_Ken);
         })
 })
-
+    
     attendance.then((makeTable)=>{
         $("#table").append(
             `<tr id="toprows">
@@ -520,7 +525,7 @@ let attendance = new Promise((resolve, reject) =>{
                     <th>4/17</th>
                 </tr>
                 <tr>
-                    <td  class="member">ケンシロウ</td>
+                    <td id="Ken" class="member">ケンシロウ</td>
                     <td>${apr2_Ken}</td>
                     <td>${apr3_Ken}</td>
                     <td>${apr9_Ken}</td>
@@ -529,7 +534,7 @@ let attendance = new Promise((resolve, reject) =>{
                     <td>${apr17_Ken}</td>
                 </tr>
                 <tr>
-                    <td  class="member">ラオウ</td>
+                    <td id="Raoh" class="member">ラオウ</td>
                     <td>${apr2_Raoh}</td>
                     <td>${apr3_Raoh}</td>
                     <td>${apr9_Raoh}</td>
@@ -538,7 +543,7 @@ let attendance = new Promise((resolve, reject) =>{
                     <td>${apr17_Raoh}</td>
                 </tr>
                 <tr>
-                    <td  class="member">トキ</td>
+                    <td id="Toki" class="member">トキ</td>
                     <td>${apr2_Toki}</td>
                     <td>${apr3_Toki}</td>
                     <td>${apr9_Toki}</td>
@@ -547,7 +552,7 @@ let attendance = new Promise((resolve, reject) =>{
                     <td>${apr17_Toki}</td>
                 </tr>
                 <tr>
-                    <td  class="member">ジャギ</td>
+                    <td id="Jagi" class="member">ジャギ</td>
                     <td>${apr2_Jagi}</td>
                     <td>${apr3_Jagi}</td>
                     <td>${apr9_Jagi}</td>
@@ -556,7 +561,7 @@ let attendance = new Promise((resolve, reject) =>{
                     <td>${apr17_Jagi}</td>
                 </tr>
                 <tr>
-                    <td  class="member">ユリア</td>
+                    <td id="Yuria" class="member">ユリア</td>
                     <td>${apr2_Yuria}</td>
                     <td>${apr3_Yuria}</td>
                     <td>${apr9_Yuria}</td>
@@ -565,7 +570,7 @@ let attendance = new Promise((resolve, reject) =>{
                     <td>${apr17_Yuria}</td>
                 </tr>
                 <tr>
-                    <td  class="member">シン</td>
+                    <td id="Shin" class="member">シン</td>
                     <td>${apr2_Shin}</td>
                     <td>${apr3_Shin}</td>
                     <td>${apr9_Shin}</td>
@@ -574,7 +579,7 @@ let attendance = new Promise((resolve, reject) =>{
                     <td>${apr17_Shin}</td>
                 </tr>
                 <tr>
-                    <td  class="member">レイ</td>
+                    <td id="Rei" class="member">レイ</td>
                     <td>${apr2_Rei}</td>
                     <td>${apr3_Rei}</td>
                     <td>${apr9_Rei}</td>
@@ -583,7 +588,7 @@ let attendance = new Promise((resolve, reject) =>{
                     <td>${apr17_Rei}</td>
                 </tr>
                 <tr>
-                    <td  class="member">サウザー</td>
+                    <td id="Souther" class="member">サウザー</td>
                     <td>${apr2_Souther}</td>
                     <td>${apr3_Souther}</td>
                     <td>${apr9_Souther}</td>
@@ -592,7 +597,7 @@ let attendance = new Promise((resolve, reject) =>{
                     <td>${apr17_Souther}</td>
                 </tr>
                 <tr>
-                    <td  class="member">ユダ</td>
+                    <td id="Uda" class="member">ユダ</td>
                     <td>${apr2_Uda}</td>
                     <td>${apr3_Uda}</td>
                     <td>${apr9_Uda}</td>
@@ -601,7 +606,7 @@ let attendance = new Promise((resolve, reject) =>{
                     <td>${apr17_Uda}</td>
                 </tr>
                 <tr>
-                    <td  class="member">マミヤ</td>
+                    <td id="Mamiya" class="member">マミヤ</td>
                     <td>${apr2_Mamiya}</td>
                     <td>${apr3_Mamiya}</td>
                     <td>${apr9_Mamiya}</td>
@@ -610,7 +615,7 @@ let attendance = new Promise((resolve, reject) =>{
                     <td>${apr17_Mamiya}</td>
                 </tr>
                 <tr>
-                    <td  class="member">フドウ</td>
+                    <td id="Fudo" class="member">フドウ</td>
                     <td>${apr2_Fudo}</td>
                     <td>${apr3_Fudo}</td>
                     <td>${apr9_Fudo}</td>
@@ -619,7 +624,7 @@ let attendance = new Promise((resolve, reject) =>{
                     <td>${apr17_Fudo}</td>
                 </tr>
                 <tr>
-                    <td  class="member">ジュウザ</td>
+                    <td id="Juza" class="member">ジュウザ</td>
                     <td>${apr2_Juza}</td>
                     <td>${apr3_Juza}</td>
                     <td>${apr9_Juza}</td>
@@ -628,7 +633,7 @@ let attendance = new Promise((resolve, reject) =>{
                     <td>${apr17_Juza}</td>
                 </tr>
                 <tr>
-                    <td  class="member">リン</td>
+                    <td id="Lin" class="member">リン</td>
                     <td>${apr2_Lin}</td>
                     <td>${apr3_Lin}</td>
                     <td>${apr9_Lin}</td>
@@ -637,7 +642,7 @@ let attendance = new Promise((resolve, reject) =>{
                     <td>${apr17_Lin}</td>
                 </tr>
                 <tr>
-                    <td  class="member">バット</td>
+                    <td id="Bat" class="member">バット</td>
                     <td>${apr2_Bat}</td>
                     <td>${apr3_Bat}</td>
                     <td>${apr9_Bat}</td>
@@ -646,7 +651,7 @@ let attendance = new Promise((resolve, reject) =>{
                     <td>${apr17_Bat}</td>
                 </tr>
                 <tr>
-                    <td  class="member">カイオウ</td>
+                    <td id="Kaioh" class="member">カイオウ</td>
                     <td>${apr2_Kaioh}</td>
                     <td>${apr3_Kaioh}</td>
                     <td>${apr9_Kaioh}</td>
@@ -658,6 +663,78 @@ let attendance = new Promise((resolve, reject) =>{
         console.log(apr2_Ken);
     })
 
+    attendance.then((detectRespondent) => {
+        // 未回答者の特定
+        let res = [];
+        ref.on('child_added', function(data){
+            const k = data.key;
+            const v = data.val();
+            res.push (v.name);
+        })
+
+        console.log(res.includes("ケンシロウ"));
+        if(res.includes("ケンシロウ")){
+                }else {
+                    console.log(res);
+                    $("#Ken").css("color","red");
+                }
+        if(res.includes("ラオウ")){
+            }else {
+                $("#Raoh").css("color","red");
+            }
+        if(res.includes("トキ")){
+            }else {
+                $("#Toki").css("color","red");
+                }
+        if(res.includes("ジャギ")){
+            }else {
+                $("#Jagi").css("color","red");
+                }
+        if(res.includes("ユリア")){
+            }else {
+                $("#Yuria").css("color","red");
+                }
+        if(res.includes("シン")){
+            }else {
+                $("#Shin").css("color","red");
+                }
+        if(res.includes("レイ")){
+            }else {
+                $("#Rei").css("color","red");
+                }
+        if(res.includes("サウザー")){
+            }else {
+                $("#Souther").css("color","red");
+                }
+        if(res.includes("ユダ")){
+            }else {
+                $("#Uda").css("color","red");
+                }
+        if(res.includes("マミヤ")){
+            }else {
+                $("#Mamiya").css("color","red");
+                }
+        if(res.includes("フドウ")){
+            }else {
+                $("#Fudo").css("color","red");
+                }
+        if(res.includes("ジュウザ")){
+            }else {
+                $("#Juza").css("color","red");
+                }
+        if(res.includes("リン")){
+            }else {
+                $("#Lin").css("color","red");
+                }
+        if(res.includes("バット")){
+            }else {
+                $("#Bat").css("color","red");
+                }
+        if(res.includes("カイオウ")){
+            }else {
+                $("#Kaioh").css("color","red");
+                }
+    })
     
 
 
@@ -719,7 +796,12 @@ google.charts.load('current', {'packages':['corechart']});
         var options = {'title':'',
                     'width':1070,
                     'height':300,
-                    'text-align': 'center'
+                    'text-align': 'center',
+                    hAxis:{
+                        minValue:3,
+                        maxValue:15,
+                        gridlined:{count:6 }},
+                    legend: { position: 'none'}
                 };
 
         // Instantiate and draw our chart, passing in some options.
@@ -946,8 +1028,10 @@ google.charts.load('current', {'packages':['corechart']});
 
             // Set chart options
             var options = {'title':'',
-                        'width':535,
-                        'height':300};
+                        'width':450,
+                        'height':300,
+                        legend: { position: 'none'}
+                    };
 
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.ColumnChart(document.getElementById('place'));
@@ -1140,8 +1224,10 @@ google.charts.load('current', {'packages':['corechart']});
 
             // Set chart options
             var options = {'title':'',
-                        'width':535,
-                        'height':300};
+                        'width':450,
+                        'height':300,
+                        legend: { position: 'none'}
+                    };
 
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.ColumnChart(document.getElementById('food'));
