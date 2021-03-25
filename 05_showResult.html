@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" 1tent="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- <link rel="stylesheet" href="reset.css"> -->
-    <!-- <link rel="stylesheet" href="#"> -->
+    <!-- css -->
+    <link rel="stylesheet" href="reset.css"> -->
+    <link rel="stylesheet" href="showResult.css">
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -44,28 +45,624 @@
 <body>
 <!--Div that will hold the pie chart-->
 <h1>懇親会アンケート結果</h1>
-<h2>参加人数</h2>
-<div id="NumberOfParticipants"></div>
-<h2>参加者希望</h2>
-<select id="date">
-    <option value="" selected>日付を選択</option>
-    <option value="4月2日">4月2日</option>
-    <option value="4月3日">4月3日</option>
-    <option value="4月9日">4月9日</option>
-    <option value="4月10日">4月10日</option>
-    <option value="4月16日">4月16日</option>
-    <option value="4月17日">4月17日</option>
-</select>
-<h3>希望場所</h3>
-<div id="place"></div>
-<h3>希望料理</h3>
-<div id="food"></div>
-<div id="allergy"></div>
-<div id="chart_div"></div>
+<div class="result-wrapper">
+    <div class="left">
+        <h2>回答状況</h2>
+        <table id="table"></table>
+    </div>
+    <div class="right">
+        <div class="number">
+            <h2>参加人数</h2>
+            <div id="NumberOfParticipants"></div>
+        </div>
+        <h2>参加者希望</h2>
+        <select id="date">
+            <option value="" selected>日付を選択</option>
+            <option value="4月2日">4月2日</option>
+            <option value="4月3日">4月3日</option>
+            <option value="4月9日">4月9日</option>
+            <option value="4月10日">4月10日</option>
+            <option value="4月16日">4月16日</option>
+            <option value="4月17日">4月17日</option>
+        </select>
+        <div class="wrapper">
+            <div class="wrapper2">
+                <h3 id="subTitle_place">希望場所</h3>
+                <div id="place"></div>
+            </div>
+            <div class="wrapper2">
+                <h3 id="subTitle_food">希望料理</h3>
+                <div id="food"></div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="wrapper2">
+                <h3 id="subTitle_allergy">アレルギー</h3>
+                <div id="allergy"></div>
+            </div>
+            <div class="wrapper2">
+                <h3 id="subTitle_other">その他</h3>
+                <div id="other"></div>
+            </div>
+        </div>
+        </div>
+</div>
+<footer></footer>
 
 <script>
-    // Load the Visualization API and the corechart package.
-    google.charts.load('current', {'packages':['corechart']});
+// 回答状況の記入
+
+    // ケンシロウ
+    let apr2_Ken="";
+    let apr3_Ken="";
+    let apr9_Ken="";
+    let apr10_Ken="";
+    let apr16_Ken="";
+    let apr17_Ken="";
+    // ラオウ
+    let apr2_Raoh="";
+    let apr3_Raoh="";
+    let apr9_Raoh="";
+    let apr10_Raoh="";
+    let apr16_Raoh="";
+    let apr17_Raoh="";
+    // トキ
+    let apr2_Toki="";
+    let apr3_Toki="";
+    let apr9_Toki="";
+    let apr10_Toki="";
+    let apr16_Toki="";
+    let apr17_Toki="";
+    // ジャギ
+    let apr2_Jagi="";
+    let apr3_Jagi="";
+    let apr9_Jagi="";
+    let apr10_Jagi="";
+    let apr16_Jagi="";
+    let apr17_Jagi="";
+    // ユリア
+    let apr2_Yuria="";
+    let apr3_Yuria="";
+    let apr9_Yuria="";
+    let apr10_Yuria="";
+    let apr16_Yuria="";
+    let apr17_Yuria="";
+    // シン
+    let apr2_Shin="";
+    let apr3_Shin="";
+    let apr9_Shin="";
+    let apr10_Shin="";
+    let apr16_Shin="";
+    let apr17_Shin="";
+    // レイ
+    let apr2_Rei="";
+    let apr3_Rei="";
+    let apr9_Rei="";
+    let apr10_Rei="";
+    let apr16_Rei="";
+    let apr17_Rei="";
+    // サウザー
+    let apr2_Souther="";
+    let apr3_Souther="";
+    let apr9_Souther="";
+    let apr10_Souther="";
+    let apr16_Souther="";
+    let apr17_Souther="";
+    // ユダ
+    let apr2_Uda="";
+    let apr3_Uda="";
+    let apr9_Uda="";
+    let apr10_Uda="";
+    let apr16_Uda="";
+    let apr17_Uda="";
+    // マミヤ
+    let apr2_Mamiya="";
+    let apr3_Mamiya="";
+    let apr9_Mamiya="";
+    let apr10_Mamiya="";
+    let apr16_Mamiya="";
+    let apr17_Mamiya="";
+    // フドウ
+    let apr2_Fudo="";
+    let apr3_Fudo="";
+    let apr9_Fudo="";
+    let apr10_Fudo="";
+    let apr16_Fudo="";
+    let apr17_Fudo="";
+    // ジュウザ
+    let apr2_Juza="";
+    let apr3_Juza="";
+    let apr9_Juza="";
+    let apr10_Juza="";
+    let apr16_Juza="";
+    let apr17_Juza="";
+    // リン
+    let apr2_Lin="";
+    let apr3_Lin="";
+    let apr9_Lin="";
+    let apr10_Lin="";
+    let apr16_Lin="";
+    let apr17_Lin="";
+    // バット
+    let apr2_Bat="";
+    let apr3_Bat="";
+    let apr9_Bat="";
+    let apr10_Bat="";
+    let apr16_Bat="";
+    let apr17_Bat="";
+    // カイオウ
+    let apr2_Kaioh="";
+    let apr3_Kaioh="";
+    let apr9_Kaioh="";
+    let apr10_Kaioh="";
+    let apr16_Kaioh="";
+    let apr17_Kaioh="";
+
+let attendance = new Promise((resolve, reject) =>{
+    ref.on('child_added', function(data){
+        const k = data.key;
+        const v = data.val();
+        console.log(v);
+        // console.log(v.date.length);
+        // console.log(k)
+
+        for(let i = 0; i <v.date.length; i++){
+            switch(v.date[i]){
+                case "4月2日":
+                    switch (v.name){
+                        case "ケンシロウ":
+                            apr2_Ken ="○";
+                            break;
+                        case "ラオウ":
+                            apr2_Raoh ="○";
+                            break;
+                        case "トキ":
+                            apr2_Toki ="○";
+                            break;
+                        case "ジャギ":
+                            apr2_Jagi ="○";
+                            break;
+                        case "ユリア":
+                            apr2_Yuria ="○";
+                            break;
+                        case "シン":
+                            apr2_Shin ="○";
+                            break;
+                        case "レイ":
+                            apr2_Rei ="○";
+                            break;
+                        case "サウザー":
+                            apr2_Souther ="○";
+                            break;
+                        case "ユダ":
+                            apr2_Uda ="○";
+                            break;
+                        case "マミヤ":
+                            apr2_Mamiya ="○";
+                            break;
+                        case "フドウ":
+                            apr2_Fudo ="○";
+                            break;
+                        case "ジュウザ":
+                            apr2_Juza ="○";
+                            break;
+                        case "リン":
+                            apr2_Lin ="○";
+                            break;
+                        case "バット":
+                            apr2_Bat ="○";
+                            break;
+                        case "カイオウ":
+                            apr2_Kaioh ="○";
+                            break;
+                    }
+                    break;
+                case "4月3日":
+                    switch (v.name){
+                        case "ケンシロウ":
+                            apr3_Ken ="○";
+                            break;
+                        case "ラオウ":
+                            apr3_Raoh ="○";
+                            break;
+                        case "トキ":
+                            apr3_Toki ="○";
+                            break;
+                        case "ジャギ":
+                            apr3_Jagi ="○";
+                            break;
+                        case "ユリア":
+                            apr3_Yuria ="○";
+                            break;
+                        case "シン":
+                            apr3_Shin ="○";
+                            break;
+                        case "レイ":
+                            apr3_Rei ="○";
+                            break;
+                        case "サウザー":
+                            apr3_Souther ="○";
+                            break;
+                        case "ユダ":
+                            apr3_Uda ="○";
+                            break;
+                        case "マミヤ":
+                            apr3_Mamiya ="○";
+                            break;
+                        case "フドウ":
+                            apr3_Fudo ="○";
+                            break;
+                        case "ジュウザ":
+                            apr3_Juza ="○";
+                            break;
+                        case "リン":
+                            apr3_Lin ="○";
+                            break;
+                        case "バット":
+                            apr3_Bat ="○";
+                            break;
+                        case "カイオウ":
+                            apr3_Kaioh ="○";
+                            break;
+                    }
+                    break;
+                case "4月9日":
+                    switch (v.name){
+                        case "ケンシロウ":
+                            apr9_Ken ="○";
+                            break;
+                        case "ラオウ":
+                            apr9_Raoh ="○";
+                            break;
+                        case "トキ":
+                            apr9_Toki ="○";
+                            break;
+                        case "ジャギ":
+                            apr9_Jagi ="○";
+                            break;
+                        case "ユリア":
+                            apr9_Yuria ="○";
+                            break;
+                        case "シン":
+                            apr9_Shin ="○";
+                            break;
+                        case "レイ":
+                            apr9_Rei ="○";
+                            break;
+                        case "サウザー":
+                            apr9_Souther ="○";
+                            break;
+                        case "ユダ":
+                            apr9_Uda ="○";
+                            break;
+                        case "マミヤ":
+                            apr9_Mamiya ="○";
+                            break;
+                        case "フドウ":
+                            apr9_Fudo ="○";
+                            break;
+                        case "ジュウザ":
+                            apr9_Juza ="○";
+                            break;
+                        case "リン":
+                            apr9_Lin ="○";
+                            break;
+                        case "バット":
+                            apr9_Bat ="○";
+                            break;
+                        case "カイオウ":
+                            apr9_Kaioh ="○";
+                            break;
+                    }
+                    break;
+                case "4月10日":
+                    switch (v.name){
+                        case "ケンシロウ":
+                            apr10_Ken ="○";
+                            break;
+                        case "ラオウ":
+                            apr10_Raoh ="○";
+                            break;
+                        case "トキ":
+                            apr10_Toki ="○";
+                            break;
+                        case "ジャギ":
+                            apr10_Jagi ="○";
+                            break;
+                        case "ユリア":
+                            apr10_Yuria ="○";
+                            break;
+                        case "シン":
+                            apr10_Shin ="○";
+                            break;
+                        case "レイ":
+                            apr10_Rei ="○";
+                            break;
+                        case "サウザー":
+                            apr10_Souther ="○";
+                            break;
+                        case "ユダ":
+                            apr10_Uda ="○";
+                            break;
+                        case "マミヤ":
+                            apr10_Mamiya ="○";
+                            break;
+                        case "フドウ":
+                            apr10_Fudo ="○";
+                            break;
+                        case "ジュウザ":
+                            apr10_Juza ="○";
+                            break;
+                        case "リン":
+                            apr10_Lin ="○";
+                            break;
+                        case "バット":
+                            apr10_Bat ="○";
+                            break;
+                        case "カイオウ":
+                            apr10_Kaioh ="○";
+                            break;
+                    }
+                    break;
+                case "4月16日":
+                    switch (v.name){
+                        case "ケンシロウ":
+                            apr16_Ken ="○";
+                            break;
+                        case "ラオウ":
+                            apr16_Raoh ="○";
+                            break;
+                        case "トキ":
+                            apr16_Toki ="○";
+                            break;
+                        case "ジャギ":
+                            apr16_Jagi ="○";
+                            break;
+                        case "ユリア":
+                            apr16_Yuria ="○";
+                            break;
+                        case "シン":
+                            apr16_Shin ="○";
+                            break;
+                        case "レイ":
+                            apr16_Rei ="○";
+                            break;
+                        case "サウザー":
+                            apr16_Souther ="○";
+                            break;
+                        case "ユダ":
+                            apr16_Uda ="○";
+                            break;
+                        case "マミヤ":
+                            apr16_Mamiya ="○";
+                            break;
+                        case "フドウ":
+                            apr16_Fudo ="○";
+                            break;
+                        case "ジュウザ":
+                            apr16_Juza ="○";
+                            break;
+                        case "リン":
+                            apr16_Lin ="○";
+                            break;
+                        case "バット":
+                            apr16_Bat ="○";
+                            break;
+                        case "カイオウ":
+                            apr16_Kaioh ="○";
+                            break;
+                    }
+                    break;
+                case "4月17日":
+                    switch (v.name){
+                        case "ケンシロウ":
+                            apr17_Ken ="○";
+                            break;
+                        case "ラオウ":
+                            apr17_Raoh ="○";
+                            break;
+                        case "トキ":
+                            apr17_Toki ="○";
+                            break;
+                        case "ジャギ":
+                            apr17_Jagi ="○";
+                            break;
+                        case "ユリア":
+                            apr17_Yuria ="○";
+                            break;
+                        case "シン":
+                            apr17_Shin ="○";
+                            break;
+                        case "レイ":
+                            apr17_Rei ="○";
+                            break;
+                        case "サウザー":
+                            apr17_Souther ="○";
+                            break;
+                        case "ユダ":
+                            apr17_Uda ="○";
+                            break;
+                        case "マミヤ":
+                            apr17_Mamiya ="○";
+                            break;
+                        case "フドウ":
+                            apr17_Fudo ="○";
+                            break;
+                        case "ジュウザ":
+                            apr17_Juza ="○";
+                            break;
+                        case "リン":
+                            apr17_Lin ="○";
+                            break;
+                        case "バット":
+                            apr17_Bat ="○";
+                            break;
+                        case "カイオウ":
+                            apr17_Kaioh ="○";
+                            break;
+                    }
+                    break;
+            }
+            }
+            resolve(apr2_Ken);
+        })
+})
+
+    attendance.then((makeTable)=>{
+        $("#table").append(
+            `<tr id="toprows">
+                    <th class="member">回答者</th>
+                    <th>4/2</th>
+                    <th>4/3</th>
+                    <th>4/9</th>
+                    <th>4/10</th>
+                    <th>4/16</th>
+                    <th>4/17</th>
+                </tr>
+                <tr>
+                    <td  class="member">ケンシロウ</td>
+                    <td>${apr2_Ken}</td>
+                    <td>${apr3_Ken}</td>
+                    <td>${apr9_Ken}</td>
+                    <td>${apr10_Ken}</td>
+                    <td>${apr16_Ken}</td>
+                    <td>${apr17_Ken}</td>
+                </tr>
+                <tr>
+                    <td  class="member">ラオウ</td>
+                    <td>${apr2_Raoh}</td>
+                    <td>${apr3_Raoh}</td>
+                    <td>${apr9_Raoh}</td>
+                    <td>${apr10_Raoh}</td>
+                    <td>${apr16_Raoh}</td>
+                    <td>${apr17_Raoh}</td>
+                </tr>
+                <tr>
+                    <td  class="member">トキ</td>
+                    <td>${apr2_Toki}</td>
+                    <td>${apr3_Toki}</td>
+                    <td>${apr9_Toki}</td>
+                    <td>${apr10_Toki}</td>
+                    <td>${apr16_Toki}</td>
+                    <td>${apr17_Toki}</td>
+                </tr>
+                <tr>
+                    <td  class="member">ジャギ</td>
+                    <td>${apr2_Jagi}</td>
+                    <td>${apr3_Jagi}</td>
+                    <td>${apr9_Jagi}</td>
+                    <td>${apr10_Jagi}</td>
+                    <td>${apr16_Jagi}</td>
+                    <td>${apr17_Jagi}</td>
+                </tr>
+                <tr>
+                    <td  class="member">ユリア</td>
+                    <td>${apr2_Yuria}</td>
+                    <td>${apr3_Yuria}</td>
+                    <td>${apr9_Yuria}</td>
+                    <td>${apr10_Yuria}</td>
+                    <td>${apr16_Yuria}</td>
+                    <td>${apr17_Yuria}</td>
+                </tr>
+                <tr>
+                    <td  class="member">シン</td>
+                    <td>${apr2_Shin}</td>
+                    <td>${apr3_Shin}</td>
+                    <td>${apr9_Shin}</td>
+                    <td>${apr10_Shin}</td>
+                    <td>${apr16_Shin}</td>
+                    <td>${apr17_Shin}</td>
+                </tr>
+                <tr>
+                    <td  class="member">レイ</td>
+                    <td>${apr2_Rei}</td>
+                    <td>${apr3_Rei}</td>
+                    <td>${apr9_Rei}</td>
+                    <td>${apr10_Rei}</td>
+                    <td>${apr16_Rei}</td>
+                    <td>${apr17_Rei}</td>
+                </tr>
+                <tr>
+                    <td  class="member">サウザー</td>
+                    <td>${apr2_Souther}</td>
+                    <td>${apr3_Souther}</td>
+                    <td>${apr9_Souther}</td>
+                    <td>${apr10_Souther}</td>
+                    <td>${apr16_Souther}</td>
+                    <td>${apr17_Souther}</td>
+                </tr>
+                <tr>
+                    <td  class="member">ユダ</td>
+                    <td>${apr2_Uda}</td>
+                    <td>${apr3_Uda}</td>
+                    <td>${apr9_Uda}</td>
+                    <td>${apr10_Uda}</td>
+                    <td>${apr16_Uda}</td>
+                    <td>${apr17_Uda}</td>
+                </tr>
+                <tr>
+                    <td  class="member">マミヤ</td>
+                    <td>${apr2_Mamiya}</td>
+                    <td>${apr3_Mamiya}</td>
+                    <td>${apr9_Mamiya}</td>
+                    <td>${apr10_Mamiya}</td>
+                    <td>${apr16_Mamiya}</td>
+                    <td>${apr17_Mamiya}</td>
+                </tr>
+                <tr>
+                    <td  class="member">フドウ</td>
+                    <td>${apr2_Fudo}</td>
+                    <td>${apr3_Fudo}</td>
+                    <td>${apr9_Fudo}</td>
+                    <td>${apr10_Fudo}</td>
+                    <td>${apr16_Fudo}</td>
+                    <td>${apr17_Fudo}</td>
+                </tr>
+                <tr>
+                    <td  class="member">ジュウザ</td>
+                    <td>${apr2_Juza}</td>
+                    <td>${apr3_Juza}</td>
+                    <td>${apr9_Juza}</td>
+                    <td>${apr10_Juza}</td>
+                    <td>${apr16_Juza}</td>
+                    <td>${apr17_Juza}</td>
+                </tr>
+                <tr>
+                    <td  class="member">リン</td>
+                    <td>${apr2_Lin}</td>
+                    <td>${apr3_Lin}</td>
+                    <td>${apr9_Lin}</td>
+                    <td>${apr10_Lin}</td>
+                    <td>${apr16_Lin}</td>
+                    <td>${apr17_Lin}</td>
+                </tr>
+                <tr>
+                    <td  class="member">バット</td>
+                    <td>${apr2_Bat}</td>
+                    <td>${apr3_Bat}</td>
+                    <td>${apr9_Bat}</td>
+                    <td>${apr10_Bat}</td>
+                    <td>${apr16_Bat}</td>
+                    <td>${apr17_Bat}</td>
+                </tr>
+                <tr>
+                    <td  class="member">カイオウ</td>
+                    <td>${apr2_Kaioh}</td>
+                    <td>${apr3_Kaioh}</td>
+                    <td>${apr9_Kaioh}</td>
+                    <td>${apr10_Kaioh}</td>
+                    <td>${apr16_Kaioh}</td>
+                    <td>${apr17_Kaioh}</td>
+                </tr>`
+        )
+        console.log(apr2_Ken);
+    })
+
+    
+
+
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['corechart']});
 
 // 参加人数bar chart
     let apr2 = 0;
@@ -109,7 +706,7 @@
         // draws it.
 
         var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
+            ['', ''],
             ['4月2日', people[0]],
             ['4月3日', people[1]],
             ['4月9日', people[2]],
@@ -119,9 +716,11 @@
         ]);
 
         // Set chart options
-        var options = {'title':'参加人数',
-                    'width':400,
-                    'height':300};
+        var options = {'title':'',
+                    'width':1070,
+                    'height':300,
+                    'text-align': 'center'
+                };
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.BarChart(document.getElementById('NumberOfParticipants'));
@@ -170,7 +769,7 @@
                                         apr2_place.赤羽++;
                                 }
                             }
-                            console.log(apr2_place);
+                            // console.log(apr2_place);
                             break;
                         case "4月3日":
                             for(let j=0; j<v.place.length; j++){
@@ -195,7 +794,7 @@
                                         break;
                                 }
                             }
-                            console.log(apr3_place);
+                            // console.log(apr3_place);
                             break;
                         case "4月9日":
                             for(let j=0; j<v.place.length; j++){
@@ -304,6 +903,7 @@
     // Firebaseから情報を取得し終わったら、円グラフを作成する
     // Firebaseから情報を取得し終わったら、バーチャートを作成する
     $("#date").change(function(){
+        $("#subTitle_place").css("display","block");
         console.log(apr2_place);
         d = $("#date").val()
         switch(d){
@@ -335,7 +935,7 @@
 
         function drawPlaceColumnChart(){
             var data = google.visualization.arrayToDataTable([
-                ['Task', 'Hours per Day'],
+                ['', ''],
                 ['新宿', candidatePlace.新宿],
                 ['渋谷', candidatePlace.渋谷],
                 ['恵比寿', candidatePlace.恵比寿],
@@ -345,8 +945,8 @@
             ]);
 
             // Set chart options
-            var options = {'title':'希望場所',
-                        'width':400,
+            var options = {'title':'',
+                        'width':535,
                         'height':300};
 
             // Instantiate and draw our chart, passing in some options.
@@ -359,7 +959,7 @@
        
         });
 
-// 場所の希望
+// 料理の希望
     // 日付ごとの場所配列作成
     let apr2_food = {"和食":0,"中華":0,"イタリアン":0,"フレンチ":0};
     let apr3_food = {"和食":0,"中華":0,"イタリアン":0,"フレンチ":0};;
@@ -369,7 +969,7 @@
     let apr17_food = {"和食":0,"中華":0,"イタリアン":0,"フレンチ":0};
     let candidateFood = null;
       
-    // 日付が変わったら、Firebaseから情報を取得
+    // Firebaseから情報を取得
         ref.on('child_added', function(data){
                 
                 const v = data.val();
@@ -392,7 +992,7 @@
                                         break;
                                 }
                             }
-                            console.log(apr2_food);
+                            // console.log(apr2_food);
                             break;
                         case "4月3日":
                             for(let j=0; j<v.food.length; j++){
@@ -411,7 +1011,7 @@
                                         break;
                                 }
                             }
-                            console.log(apr3_food);
+                            // console.log(apr3_food);
                             break;
                         case "4月9日":
                             for(let j=0; j<v.food.length; j++){
@@ -430,7 +1030,7 @@
                                         break;
                                 }
                             }
-                            console.log(apr9_food);
+                            // console.log(apr9_food);
                             break;
                         case "4月10日":
                             for(let j=0; j<v.food.length; j++){
@@ -449,7 +1049,7 @@
                                         break;
                                 }
                             }
-                            console.log(apr10_food);
+                            // console.log(apr10_food);
                             break;
                         case "4月16日":
                             for(let j=0; j<v.food.length; j++){
@@ -468,7 +1068,7 @@
                                         break;
                                 }
                             }
-                            console.log(apr16_food);
+                            // console.log(apr16_food);
                             break;
                         case "4月17日":
                             for(let j=0; j<v.food.length; j++){
@@ -487,7 +1087,7 @@
                                         break;
                                 }
                             }
-                            console.log(apr17_food);
+                            // console.log(apr17_food);
                             break;
                     }
                 }
@@ -497,9 +1097,9 @@
         
     
             
-    // Firebaseから情報を取得し終わったら、円グラフを作成する
-    // Firebaseから情報を取得し終わったら、バーチャートを作成する
+    // 日付が変わったら、バーチャートを作成する
     $("#date").change(function(){
+        $("#subTitle_food").css("display","block");
         console.log(apr2_food);
         d = $("#date").val()
         switch(d){
@@ -531,7 +1131,7 @@
 
         function drawFoodColumnChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Task', 'Hours per Day'],
+                ['', ''],
                 ['和食', candidateFood.和食],
                 ['中華', candidateFood.中華],
                 ['イタリアン', candidateFood.イタリアン],
@@ -539,8 +1139,8 @@
             ]);
 
             // Set chart options
-            var options = {'title':'希望料理',
-                        'width':400,
+            var options = {'title':'',
+                        'width':535,
                         'height':300};
 
             // Instantiate and draw our chart, passing in some options.
@@ -552,6 +1152,135 @@
        
         });
     
+// 日付ごとに参加者のアレルギーの有無を表示
+    let apr2_allergy = "";
+    let apr3_allergy = "";
+    let apr9_allergy = "";
+    let apr10_allergy = "";
+    let apr16_allergy = "";
+    let apr17_allergy = "";
+    let allergyOfDay = null;
+    
+    // 日付ごとのアレルギー情報をFirebaseから取得する。
+    ref.on('child_added', function(data){
+        const k = data.key;
+        const v = data.val();
+        for(let i=0; i<v.date.length; i++){
+            switch(v.date[i]){
+                case "4月2日":
+                    apr2_allergy = `${apr2_allergy}${k}：${v.allergy}<br>`
+                    break;
+                case "4月3日":
+                    apr3_allergy = `${apr3_allergy}${k}：${v.allergy}<br>`
+                    break;
+                case "4月9日":
+                    apr9_allergy = `${apr9_allergy}${k}：${v.allergy}<br>`
+                    break;
+                case "4月10日":
+                    apr10_allergy = `${apr10_allergy}${k}：${v.allergy}<br>`
+                    break;
+                case "4月16日":
+                    apr16_allergy = `${apr16_allergy}${k}：${v.allergy}<br>`
+                    break;
+                case "4月17日":
+                    apr17_allergy = `${apr17_allergy}${k}：${v.allergy}<br>`
+                    break;
+            }
+        }
+    })
+
+    // #dateの日付が変わったら、対象のアレルギー情報を表示する。
+    $("#date").change(function(){
+        $("#subTitle_allergy").css("display","block");
+        $("#allergy").empty();
+        switch ($("#date").val()){
+            case "4月2日":
+                allergyOfDay = apr2_allergy;
+                break;
+            case "4月3日":
+                allergyOfDay = apr3_allergy;
+                break;
+            case "4月9日":
+                allergyOfDay = apr9_allergy;
+                break;
+            case "4月10日":
+                allergyOfDay = apr10_allergy;
+                break;
+            case "4月16日":
+                allergyOfDay = apr16_allergy;
+                break;
+            case "4月17日":
+                allergyOfDay = apr17_allergy;
+                break;
+        }
+        $("#allergy").append(allergyOfDay);
+    })
+
+    
+    
+// 日付ごとに参加者のその他情報を表示
+    let apr2_other = "";
+    let apr3_other = "";
+    let apr9_other = "";
+    let apr10_other = "";
+    let apr16_other = "";
+    let apr17_other = "";
+    let otherOfDay = null;
+    
+    // 日付ごとのアレルギー情報をFirebaseから取得する。
+    ref.on('child_added', function(data){
+        const k = data.key;
+        const v = data.val();
+        for(let i=0; i<v.date.length; i++){
+            switch(v.date[i]){
+                case "4月2日":
+                    apr2_other = `${apr2_other}${k}：${v.other}<br>`
+                    break;
+                case "4月3日":
+                    apr3_other = `${apr3_other}${k}：${v.other}<br>`
+                    break;
+                case "4月9日":
+                    apr9_other = `${apr9_other}${k}：${v.other}<br>`
+                    break;
+                case "4月10日":
+                    apr10_other = `${apr10_other}${k}：${v.other}<br>`
+                    break;
+                case "4月16日":
+                    apr16_other = `${apr16_other}${k}：${v.other}<br>`
+                    break;
+                case "4月17日":
+                    apr17_other = `${apr17_other}${k}：${v.other}<br>`
+                    break;
+            }
+        }
+    })
+
+    // #dateの日付が変わったら、対象のその他情報を表示する。
+    $("#date").change(function(){
+        $("#subTitle_other").css("display","block");
+        $("#other").empty();
+        switch ($("#date").val()){
+            case "4月2日":
+                otherOfDay = apr2_other;
+                break;
+            case "4月3日":
+                otherOfDay = apr3_other;
+                break;
+            case "4月9日":
+                otherOfDay = apr9_other;
+                break;
+            case "4月10日":
+                otherOfDay = apr10_other;
+                break;
+            case "4月16日":
+                otherOfDay = apr16_other;
+                break;
+            case "4月17日":
+                otherOfDay = apr17_other;
+                break;
+        }
+        $("#other").append(otherOfDay);
+    })
 
     
 </script>
