@@ -58,7 +58,8 @@
 </select>
 <h3>希望場所</h3>
 <div id="place"></div>
-<div id="mealType"></div>
+<h3>希望料理</h3>
+<div id="food"></div>
 <div id="allergy"></div>
 <div id="chart_div"></div>
 
@@ -100,7 +101,7 @@
         }
     )
     
-    // Firebaseから情報を取得し終わったら、バーチャートを作成する
+    // Firebaseから情報を取得し終わったら(Promise)、バーチャートを作成する
     peopleData.then((drawParticipantsBarChart) => {
         // Create the data table.
         // Callback that creates and populates a data table,
@@ -132,13 +133,14 @@
         });
 
 // 場所の希望
-let apr2_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
-let apr3_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
-let apr9_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
-let apr10_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
-let apr16_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
-let apr17_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
-let candidatePlace = null;
+    // 日付ごとの場所配列作成
+    let apr2_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
+    let apr3_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
+    let apr9_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
+    let apr10_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
+    let apr16_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
+    let apr17_place = {"新宿":0,"渋谷":0,"恵比寿":0,"新橋":0,"上野":0,"赤羽":0}
+    let candidatePlace = null;
       
     // 日付が変わったら、Firebaseから情報を取得
         ref.on('child_added', function(data){
@@ -331,29 +333,225 @@ let candidatePlace = null;
         // instantiates the pie chart, passes in the data and
         // draws it.
 
-        var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['新宿', candidatePlace.新宿],
-            ['渋谷', candidatePlace.渋谷],
-            ['恵比寿', candidatePlace.恵比寿],
-            ['新橋', candidatePlace.新橋],
-            ['上野', candidatePlace.上野],
-            ['赤羽', candidatePlace.赤羽],
-        ]);
+        function drawPlaceColumnChart(){
+            var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['新宿', candidatePlace.新宿],
+                ['渋谷', candidatePlace.渋谷],
+                ['恵比寿', candidatePlace.恵比寿],
+                ['新橋', candidatePlace.新橋],
+                ['上野', candidatePlace.上野],
+                ['赤羽', candidatePlace.赤羽],
+            ]);
 
-        // Set chart options
-        var options = {'title':'希望場所',
-                    'width':400,
-                    'height':300};
+            // Set chart options
+            var options = {'title':'希望場所',
+                        'width':400,
+                        'height':300};
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('place'));
-        chart.draw(data, options);
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('place'));
+            chart.draw(data, options);
+        }
         
         // Set a callback to run when the Google Visualization API is loaded.
-        google.charts.setOnLoadCallback(drawPlacePieChart);
+        google.charts.setOnLoadCallback(drawPlaceColumnChart);
        
         });
+
+// 場所の希望
+    // 日付ごとの場所配列作成
+    let apr2_food = {"和食":0,"中華":0,"イタリアン":0,"フレンチ":0};
+    let apr3_food = {"和食":0,"中華":0,"イタリアン":0,"フレンチ":0};;
+    let apr9_food = {"和食":0,"中華":0,"イタリアン":0,"フレンチ":0};;
+    let apr10_food = {"和食":0,"中華":0,"イタリアン":0,"フレンチ":0};;
+    let apr16_food = {"和食":0,"中華":0,"イタリアン":0,"フレンチ":0};;
+    let apr17_food = {"和食":0,"中華":0,"イタリアン":0,"フレンチ":0};
+    let candidateFood = null;
+      
+    // 日付が変わったら、Firebaseから情報を取得
+        ref.on('child_added', function(data){
+                
+                const v = data.val();
+                for(let i=0; i<v.date.length; i++){
+                    switch(v.date[i]){
+                        case "4月2日":
+                            for(let j=0; j<v.food.length; j++){
+                                switch(v.food[j]){
+                                    case "和食":
+                                        apr2_food.和食++;
+                                        break;
+                                    case "中華":
+                                        apr2_food.中華++;
+                                        break;
+                                    case "イタリアン":
+                                        apr2_food.イタリアン++;
+                                        break;
+                                    case "フレンチ":
+                                        apr2_food.フレンチ++;
+                                        break;
+                                }
+                            }
+                            console.log(apr2_food);
+                            break;
+                        case "4月3日":
+                            for(let j=0; j<v.food.length; j++){
+                                switch(v.food[j]){
+                                    case "和食":
+                                        apr3_food.和食++;
+                                        break;
+                                    case "中華":
+                                        apr3_food.中華++;
+                                        break;
+                                    case "イタリアン":
+                                        apr3_food.イタリアン++;
+                                        break;
+                                    case "フレンチ":
+                                        apr3_food.フレンチ++;
+                                        break;
+                                }
+                            }
+                            console.log(apr3_food);
+                            break;
+                        case "4月9日":
+                            for(let j=0; j<v.food.length; j++){
+                                switch(v.food[j]){
+                                    case "和食":
+                                        apr9_food.和食++;
+                                        break;
+                                    case "中華":
+                                        apr9_food.中華++;
+                                        break;
+                                    case "イタリアン":
+                                        apr9_food.イタリアン++;
+                                        break;
+                                    case "フレンチ":
+                                        apr9_food.フレンチ++;
+                                        break;
+                                }
+                            }
+                            console.log(apr9_food);
+                            break;
+                        case "4月10日":
+                            for(let j=0; j<v.food.length; j++){
+                                switch(v.food[j]){
+                                    case "和食":
+                                        apr10_food.和食++;
+                                        break;
+                                    case "中華":
+                                        apr10_food.中華++;
+                                        break;
+                                    case "イタリアン":
+                                        apr10_food.イタリアン++;
+                                        break;
+                                    case "フレンチ":
+                                        apr10_food.フレンチ++;
+                                        break;
+                                }
+                            }
+                            console.log(apr10_food);
+                            break;
+                        case "4月16日":
+                            for(let j=0; j<v.food.length; j++){
+                                switch(v.food[j]){
+                                    case "和食":
+                                        apr16_food.和食++;
+                                        break;
+                                    case "中華":
+                                        apr16_food.中華++;
+                                        break;
+                                    case "イタリアン":
+                                        apr16_food.イタリアン++;
+                                        break;
+                                    case "フレンチ":
+                                        apr16_food.フレンチ++;
+                                        break;
+                                }
+                            }
+                            console.log(apr16_food);
+                            break;
+                        case "4月17日":
+                            for(let j=0; j<v.food.length; j++){
+                                switch(v.food[j]){
+                                    case "和食":
+                                        apr17_food.和食++;
+                                        break;
+                                    case "中華":
+                                        apr17_food.中華++;
+                                        break;
+                                    case "イタリアン":
+                                        apr17_food.イタリアン++;
+                                        break;
+                                    case "フレンチ":
+                                        apr17_food.フレンチ++;
+                                        break;
+                                }
+                            }
+                            console.log(apr17_food);
+                            break;
+                    }
+                }
+                
+            
+        })
+        
+    
+            
+    // Firebaseから情報を取得し終わったら、円グラフを作成する
+    // Firebaseから情報を取得し終わったら、バーチャートを作成する
+    $("#date").change(function(){
+        console.log(apr2_food);
+        d = $("#date").val()
+        switch(d){
+            case "4月2日":
+                candidateFood = apr2_food;
+                break;
+            case "4月3日":
+                candidateFood = apr3_food;
+                break;
+            case "4月9日":
+                candidateFood = apr9_food;
+                break;
+            case "4月10日":
+                candidateFood = apr10_food;
+                break;
+            case "4月16日":
+                candidateFood = apr16_food;
+                break;
+            case "4月17日":
+                candidateFood = apr17_food;
+                break;
+        }
+        console.log(apr2_food);
+        console.log(candidateFood);
+        // Create the data table.
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+
+        function drawFoodColumnChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['和食', candidateFood.和食],
+                ['中華', candidateFood.中華],
+                ['イタリアン', candidateFood.イタリアン],
+                ['フレンチ', candidateFood.フレンチ]
+            ]);
+
+            // Set chart options
+            var options = {'title':'希望料理',
+                        'width':400,
+                        'height':300};
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ColumnChart(document.getElementById('food'));
+            chart.draw(data, options);
+        }
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawFoodColumnChart);
+       
+        });
+    
 
     
 </script>
